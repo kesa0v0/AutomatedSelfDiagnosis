@@ -6,7 +6,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.widget.Switch
 import android.widget.TimePicker
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         // Initialize TimePicker with previous settings
 
 
-        picker.setOnTimeChangedListener { view, hourOfDay, minute ->
+        picker.setOnTimeChangedListener { _, hourOfDay, minute ->
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = System.currentTimeMillis()
             calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
@@ -57,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             calendar.set(Calendar.SECOND, 0)
 
             if (calendar.before(Calendar.getInstance())) {
-                calendar.add(Calendar.DATE, 1);
+                calendar.add(Calendar.DATE, 1)
             }
 
             val currentDateTime = calendar.time
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
 
-            //  Preference에 설정한 값 저장
+            //  Preference 에 설정한 값 저장
             val editor = getSharedPreferences("daily alarm", Context.MODE_PRIVATE).edit()
             editor.putLong("nextNotifyTime", calendar.timeInMillis)
             editor.apply()
@@ -111,13 +110,11 @@ class MainActivity : AppCompatActivity() {
         } else { //Disable Daily Notifications
             if (PendingIntent.getBroadcast(this, 0, alarmIntent, 0) != null) {
                 alarmManager.cancel(pendingIntent)
-                Toast.makeText(this,"Notifications were disabled",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Notifications were disabled",Toast.LENGTH_SHORT).show()
             }
             pm.setComponentEnabledSetting(receiver,
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                     PackageManager.DONT_KILL_APP)
-            }
-
         }
     }
 }
