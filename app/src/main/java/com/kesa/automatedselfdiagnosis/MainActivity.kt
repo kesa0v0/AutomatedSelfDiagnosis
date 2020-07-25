@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         val pm = this.packageManager
         val receiver = ComponentName(this, DeviceBootReceiver::class.java)
         val alarmIntent = Intent(this, AlarmActivity::class.java)
+        alarmIntent.putExtra("time", SimpleDateFormat("a hh : mm", Locale.getDefault()).format(calendar.time))
         val pendingIntent = PendingIntent.getActivity(this, 0, alarmIntent, 0)
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -92,6 +93,13 @@ class MainActivity : AppCompatActivity() {
                 alarmManager.cancel(pendingIntent)
             }
             sharedPreferences.edit().putBoolean("switchStatus", isChecked).apply()
+        }
+
+
+        val test = findViewById<Button>(R.id.test)
+        test.setOnClickListener {
+            startActivity(Intent(this, AlarmActivity::class.java)
+                .putExtra("time", SimpleDateFormat("a hh : mm", Locale.getDefault()).format(calendar.time)))
         }
     }
 }
