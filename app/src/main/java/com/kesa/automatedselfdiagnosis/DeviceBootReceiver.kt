@@ -15,7 +15,7 @@ class DeviceBootReceiver : BroadcastReceiver() {
         if (intent.action == "android.intent.action.BOOT_COMPLETED") {
 
             // on device boot complete, reset the alarm
-            val alarmIntent = Intent(context, AlarmReceiver::class.java)
+            val alarmIntent = Intent(context, AlarmActivity::class.java)
             val pendingIntent =
                 PendingIntent.getBroadcast(context, 0, alarmIntent, 0)
             val manager =
