@@ -23,7 +23,18 @@
         android:text="Activate"
         android:textOff="Deactivated"
         android:textOn="Activated"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker"
-        tools:layout_editor_absoluteX="166dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timePicker" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activated" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

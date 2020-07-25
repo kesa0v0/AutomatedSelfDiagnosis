@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Switch
 import android.widget.TimePicker
 import android.widget.Toast
@@ -23,36 +24,38 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val picker = findViewById<TimePicker>(R.id.timePicker)
-
         picker.setIs24HourView(true)
 
-        val sharedPreferences = getSharedPreferences("daily alarm", Context.MODE_PRIVATE)
-        val milis = sharedPreferences.getLong("nextNotifyTime", Calendar.getInstance().timeInMillis)
+        val sharedPreferences =
+            getSharedPreferences("daily alarm", Context.MODE_PRIVATE)
+        val millis =
+            sharedPreferences.getLong("nextNotifyTime", Calendar.getInstance().timeInMillis)
 
-        val nextNotifyTime = GregorianCalendar()
-        nextNotifyTime.timeInMillis = milis
+        val nextNotifyTime: Calendar = GregorianCalendar()
+        nextNotifyTime.timeInMillis = millis
 
-        val nextDate = nextNotifyTime.time
-        val dateText = SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분 ", Locale.getDefault()).format(nextDate)
-        Toast.makeText(applicationContext,"[처음 실행시] 다음 알람은 " + dateText + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show()
-
+        // 이전 설정값으로 TimePicker 초기화
         val currentTime = nextNotifyTime.time
-        val hourFormat = SimpleDateFormat("kk", Locale.getDefault())
-        val minuteFormat = SimpleDateFormat("mm", Locale.getDefault())
+        val hourFormat =
+            SimpleDateFormat("kk", Locale.getDefault())
+        val minuteFormat =
+            SimpleDateFormat("mm", Locale.getDefault())
 
-        val preHour = Integer.parseInt(hourFormat.format(currentTime))
-        val preMinute = Integer.parseInt(minuteFormat.format(currentTime))
+        val preHour = hourFormat.format(currentTime).toInt()
+        val preMinute = minuteFormat.format(currentTime).toInt()
 
         picker.hour = preHour
         picker.minute = preMinute
-        // Initialize TimePicker with previous settings
-
 
         picker.setOnTimeChangedListener { _, hourOfDay, minute ->
+
+        }
+        val btn = findViewById<Button>(R.id.button)
+        btn.setOnClickListener {
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = System.currentTimeMillis()
-            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-            calendar.set(Calendar.MINUTE, minute)
+            calendar.set(Calendar.HOUR_OF_DAY, picker.hour)
+            calendar.set(Calendar.MINUTE, picker.minute)
             calendar.set(Calendar.SECOND, 0)
 
             if (calendar.before(Calendar.getInstance())) {
@@ -74,7 +77,6 @@ class MainActivity : AppCompatActivity() {
             editor.putLong("nextNotifyTime", calendar.timeInMillis)
             editor.apply()
 
-
             diaryNotification(calendar)
         }
     }
@@ -90,14 +92,11 @@ class MainActivity : AppCompatActivity() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         if (dailyNotify) {
+            println(calendar.time)
+            println(Calendar.getInstance().time)
+            println(calendar.timeInMillis - System.currentTimeMillis())
             alarmManager.setRepeating(
-                AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
-                AlarmManager.INTERVAL_DAY, pendingIntent
-            )
-            alarmManager.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
-                pendingIntent
+                AlarmManager.RTC_WAKEUP, calendar.timeInMillis, 60000 ,pendingIntent
             )
 
             // 부팅 후 실행되는 리시버 사용가능하게 설정
@@ -106,15 +105,6 @@ class MainActivity : AppCompatActivity() {
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP
             )
-
-        } else { //Disable Daily Notifications
-            if (PendingIntent.getBroadcast(this, 0, alarmIntent, 0) != null) {
-                alarmManager.cancel(pendingIntent)
-                Toast.makeText(this,"Notifications were disabled",Toast.LENGTH_SHORT).show()
-            }
-            pm.setComponentEnabledSetting(receiver,
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                    PackageManager.DONT_KILL_APP)
         }
     }
 }
