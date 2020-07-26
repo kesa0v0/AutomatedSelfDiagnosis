@@ -30,14 +30,17 @@ class AlarmActivity : AppCompatActivity() {
 
         yes.setOnClickListener {
             val browserIntent =
-                Intent(Intent.ACTION_VIEW, Uri.parse("https://eduro.dge.go.kr/hcheck/index.jsp"))
+                Intent(Intent.ACTION_VIEW, Uri.parse("https://eduro.dge.go.kr/stv_cvd_co00_000.do?k=3xi5m3BNzatDvJ%2FX3nZguA%3D%3D"))
             startActivity(browserIntent)
         }
 
         no.setOnClickListener {
             DoAsync {
-                val get = GettingStarted()
-                get.testGoogleSearch()
+//                val get = GettingStarted()
+//                get.testGoogleSearch()
+                val browserIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://eduro.dge.go.kr/stv_cvd_co00_000.do?k=3xi5m3BNzatDvJ%2FX3nZguA%3D%3D"))
+                startActivity(browserIntent)
             }.execute()
         }
     }

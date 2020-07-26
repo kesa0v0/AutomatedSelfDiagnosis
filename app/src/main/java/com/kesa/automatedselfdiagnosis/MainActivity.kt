@@ -65,6 +65,9 @@ class MainActivity : AppCompatActivity() {
             val editor = getSharedPreferences("selfDiagnosis", Context.MODE_PRIVATE).edit()
             editor.putLong("nextNotifyTime", calendar.timeInMillis)
             editor.apply()
+
+            activeSwitch.isChecked = false
+            sharedPreferences.edit().putBoolean("switchStatus", false).apply()
         }
 
 
@@ -79,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         activeSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 alarmManager.setRepeating(
-                    AlarmManager.RTC_WAKEUP, calendar.timeInMillis, 60000, pendingIntent
+                    AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent
                 )
 
                 // 부팅 후 실행되는 리시버 사용가능하게 설정
@@ -88,18 +91,21 @@ class MainActivity : AppCompatActivity() {
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                     PackageManager.DONT_KILL_APP
                 )
+
+                Toast.makeText(this, SimpleDateFormat("a hh시 mm분으로 설정되었습니다", Locale.getDefault()).format(calendar.time), Toast.LENGTH_LONG).show()
             }
             else {
                 alarmManager.cancel(pendingIntent)
+                Toast.makeText(this, "해제되었습니다.", Toast.LENGTH_SHORT).show()
             }
             sharedPreferences.edit().putBoolean("switchStatus", isChecked).apply()
         }
 
 
-        val test = findViewById<Button>(R.id.test)
-        test.setOnClickListener {
-            startActivity(Intent(this, AlarmActivity::class.java)
-                .putExtra("time", SimpleDateFormat("a hh : mm", Locale.getDefault()).format(calendar.time)))
-        }
+//        val test = findViewById<Button>(R.id.test)
+//        test.setOnClickListener {
+//            startActivity(Intent(this, AlarmActivity::class.java)
+//                .putExtra("time", SimpleDateFormat("a hh : mm", Locale.getDefault()).format(calendar.time)))
+//        }
     }
 }

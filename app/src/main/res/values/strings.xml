@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">AutomatedSelfDiagnosis</string>
+    <string name="app_name">자가진단 알림</string>
+    <string name="activate">Activate</string>
+    <string name="deactivated">Deactivated</string>
+    <string name="activated">Activated</string>
+    <string name="btnNo">아니요</string>
+    <string name="btnYes">네</string>
+    <string name="Time">TextView</string>
+    <string name="haveSymptomQuestion">코로나 의심 증상을 가지고 계신가요?</string>
 </resources>
