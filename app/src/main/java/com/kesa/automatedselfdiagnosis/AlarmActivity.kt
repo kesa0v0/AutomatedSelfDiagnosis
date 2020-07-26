@@ -18,10 +18,15 @@ import org.openqa.selenium.chrome.ChromeOptions
 
 class AlarmActivity : AppCompatActivity() {
 
-    private val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+    private lateinit var vib : Vibrator
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm)
+
+        val uri = "https://eduro.dge.go.kr/hcheck/index.jsp"
+
+
+        vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
 //        System.setProperty("webdriver.chrome.driver", "\bD:\\program\\selendroid\\chromedriver.exe")
 //        println("property" + System.getProperty("webdriver.chrome.driver"))
@@ -35,7 +40,7 @@ class AlarmActivity : AppCompatActivity() {
 
         yes.setOnClickListener {
             val browserIntent =
-                Intent(Intent.ACTION_VIEW, Uri.parse("https://eduro.dge.go.kr/stv_cvd_co00_000.do?k=3xi5m3BNzatDvJ%2FX3nZguA%3D%3D"))
+                Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             startActivity(browserIntent)
 
             vib.cancel()
@@ -48,7 +53,7 @@ class AlarmActivity : AppCompatActivity() {
 //                val get = GettingStarted()
 //                get.testGoogleSearch()
                 val browserIntent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("https://eduro.dge.go.kr/stv_cvd_co00_000.do?k=3xi5m3BNzatDvJ%2FX3nZguA%3D%3D"))
+                    Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                 startActivity(browserIntent)
             }.execute()
 

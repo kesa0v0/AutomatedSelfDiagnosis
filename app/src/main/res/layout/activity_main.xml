@@ -53,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:ems="10"
+                android:enabled="false"
                 android:hint="@string/schoolNameHintText"
                 android:inputType="textPersonName" />
         </TableRow>
@@ -73,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:ems="10"
+                android:enabled="false"
                 android:hint="@string/nameHintText"
                 android:inputType="textPersonName" />
         </TableRow>
@@ -93,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:ems="10"
+                android:enabled="false"
                 android:hint="@string/dateHintText"
                 android:inputType="date" />
 
