@@ -5,6 +5,12 @@
     <string name="activated">Activated</string>
     <string name="btnNo">아니요</string>
     <string name="btnYes">네</string>
-    <string name="Time">TextView</string>
+    <string name="Time">Time</string>
     <string name="haveSymptomQuestion">코로나 의심 증상을 가지고 계신가요?</string>
+    <string name="date">생년월일</string>
+    <string name="schoolNameText">학교 이름</string>
+    <string name="nameText">이름</string>
+    <string name="nameHintText">이름</string>
+    <string name="schoolNameHintText">학교</string>
+    <string name="dateHintText">YYMMDD</string>
 </resources>

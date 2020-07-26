@@ -1,13 +1,16 @@
 package com.kesa.automatedselfdiagnosis
 
 import android.app.AlarmManager
+import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.widget.Button
+import android.provider.Settings
 import android.widget.Switch
 import android.widget.TimePicker
 import android.widget.Toast
@@ -23,6 +26,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if (!Settings.canDrawOverlays(this)) {
+            val builder = AlertDialog.Builder(this).apply {
+                title = "권한 요청"
+                setMessage("다른 화면 위에 그리기라는 권한이 필요합니다.")
+                setCancelable(false)
+                setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                    finish()
+                }
+                setPositiveButton("수락") { dialog, _ ->
+                    val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName"))
+                    startActivityForResult(intent, 0)
+                    dialog.dismiss()
+                }
+            }.show()
+        }
 
         val activeSwitch = findViewById<Switch>(R.id.activated)
         val picker = findViewById<TimePicker>(R.id.timePicker)

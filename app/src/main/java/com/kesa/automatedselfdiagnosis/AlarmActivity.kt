@@ -1,9 +1,12 @@
 package com.kesa.automatedselfdiagnosis
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +18,7 @@ import org.openqa.selenium.chrome.ChromeOptions
 
 class AlarmActivity : AppCompatActivity() {
 
+    private val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm)
@@ -27,11 +31,16 @@ class AlarmActivity : AppCompatActivity() {
         val no = findViewById<Button>(R.id.noSymptom)
 
         timeView.text = intent.getStringExtra("time")
+        vib.vibrate(VibrationEffect.createWaveform(longArrayOf(500, 1000, 500, 2000), 0))
 
         yes.setOnClickListener {
             val browserIntent =
                 Intent(Intent.ACTION_VIEW, Uri.parse("https://eduro.dge.go.kr/stv_cvd_co00_000.do?k=3xi5m3BNzatDvJ%2FX3nZguA%3D%3D"))
             startActivity(browserIntent)
+
+            vib.cancel()
+
+            finish()
         }
 
         no.setOnClickListener {
@@ -42,7 +51,17 @@ class AlarmActivity : AppCompatActivity() {
                     Intent(Intent.ACTION_VIEW, Uri.parse("https://eduro.dge.go.kr/stv_cvd_co00_000.do?k=3xi5m3BNzatDvJ%2FX3nZguA%3D%3D"))
                 startActivity(browserIntent)
             }.execute()
+
+            vib.cancel()
+
+            finish()
         }
+    }
+
+    override fun finish() {
+        vib.cancel()
+
+        super.finish()
     }
 }
 
