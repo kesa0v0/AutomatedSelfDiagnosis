@@ -25,7 +25,6 @@ class AlarmActivity : AppCompatActivity() {
 
         val uri = "https://eduro.dge.go.kr/hcheck/index.jsp"
 
-
         vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
 //        System.setProperty("webdriver.chrome.driver", "\bD:\\program\\selendroid\\chromedriver.exe")
@@ -79,17 +78,14 @@ class DoAsync(val handler: () -> Unit) : AsyncTask<Void, Void, Void>() {
 
 class GettingStarted {
     fun testGoogleSearch() {
-        val chromeOptions = ChromeOptions()
-        chromeOptions.setExperimentalOption("androidPackage", "com.android.chrome")
-        chromeOptions.setExperimentalOption("androidDeviceSerial", "PIXEL 3")
-        System.setProperty("webdriver.chrome.driver", "\bC:\\selendroid\\chromedriver.exe")
-        val driver: WebDriver = ChromeDriver(chromeOptions)
+        System.setProperty("webdriver.chrome.driver", "C:\\selendroid\\chromedriver.exe")
+        val driver: WebDriver = ChromeDriver()
         driver["http://www.google.com/"]
-        Thread.sleep(5000) // Let the user actually see something!
+        Thread.sleep(1000) // Let the user actually see something!
         val searchBox = driver.findElement(By.name("q"))
         searchBox.sendKeys("ChromeDriver")
         searchBox.submit()
-        Thread.sleep(5000) // Let the user actually see something!
+        Thread.sleep(10-0) // Let the user actually see something!
         driver.quit()
     }
 }
