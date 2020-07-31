@@ -8,9 +8,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.Button
 import android.widget.Switch
 import android.widget.TimePicker
 import android.widget.Toast
@@ -122,10 +122,10 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-//        val test = findViewById<Button>(R.id.test)
-//        test.setOnClickListener {
-//            startActivity(Intent(this, AlarmActivity::class.java)
-//                .putExtra("time", SimpleDateFormat("a hh : mm", Locale.getDefault()).format(calendar.time)))
-//        }
+        val test = findViewById<Button>(R.id.test)
+        test.setOnClickListener {
+            startActivity(Intent(this, AlarmActivity::class.java)
+                .putExtra("time", SimpleDateFormat("a hh : mm", Locale.getDefault()).format(calendar.time)))
+        }
     }
 }

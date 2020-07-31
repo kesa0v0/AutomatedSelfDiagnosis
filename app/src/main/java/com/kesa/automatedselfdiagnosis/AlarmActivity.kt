@@ -49,8 +49,8 @@ class AlarmActivity : AppCompatActivity() {
 
         no.setOnClickListener {
             DoAsync {
-//                val get = GettingStarted()
-//                get.testGoogleSearch()
+                val get = GettingStarted()
+                get.testGoogleSearch()
                 val browserIntent =
                     Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                 startActivity(browserIntent)
@@ -78,7 +78,7 @@ class DoAsync(val handler: () -> Unit) : AsyncTask<Void, Void, Void>() {
 
 class GettingStarted {
     fun testGoogleSearch() {
-        System.setProperty("webdriver.chrome.driver", "C:\\selendroid\\chromedriver.exe")
+        System.setProperty("webdriver.chrome.driver", "C:/selendroid/chromedriver.exe")
         val driver: WebDriver = ChromeDriver()
         driver["http://www.google.com/"]
         Thread.sleep(1000) // Let the user actually see something!
