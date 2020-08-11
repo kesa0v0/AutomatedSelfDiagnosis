@@ -53,6 +53,15 @@ class AlarmActivity : AppCompatActivity() {
 //                startActivity(browserIntent)
                 
                 // 뭔가....뭔가 아무튼 메크로임 아무튼 그럼 곧 할꺼임
+
+                // 메크로 매크로 아무튼 생각해둔 방안
+                // 1. Selendroid 계속 해본다. 단점: 가능함?
+                // 2. 화면 터치 메크로? 단점: 화면 바뀌면 못쓰니 사용자가 화면 위치를 등록해야함, 아마도...
+                // 3. 파이썬 서버 하나 올려서 앱에서 요청하면 서버에서 selendroid 말고 selenium 으로
+                // 작동하는 메크로.
+
+                // 아무튼 그럼 아무튼 그런거임 ㅇㅇ
+
                 //TODO: Make some kind of Macro
             }.execute()
             
