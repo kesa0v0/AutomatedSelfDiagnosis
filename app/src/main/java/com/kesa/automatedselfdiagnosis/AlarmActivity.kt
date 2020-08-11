@@ -27,9 +27,6 @@ class AlarmActivity : AppCompatActivity() {
 
         vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
-//        System.setProperty("webdriver.chrome.driver", "\bD:\\program\\selendroid\\chromedriver.exe")
-//        println("property" + System.getProperty("webdriver.chrome.driver"))
-
         val timeView = findViewById<TextView>(R.id.currentTime)
         val yes = findViewById<Button>(R.id.yesSymptom)
         val no = findViewById<Button>(R.id.noSymptom)
@@ -51,9 +48,9 @@ class AlarmActivity : AppCompatActivity() {
             DoAsync {
                 val get = GettingStarted()
                 get.testGoogleSearch()
-                val browserIntent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-                startActivity(browserIntent)
+//                val browserIntent =
+//                    Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+//                startActivity(browserIntent)
             }.execute()
 
             vib.cancel()

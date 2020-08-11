@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (!Settings.canDrawOverlays(this)) {
+        if (!Settings.canDrawOverlays(this)) { // 다른 화면 위에 그리기 권한 요청
             val builder = AlertDialog.Builder(this).apply {
                 title = "권한 요청"
                 setMessage("다른 화면 위에 그리기라는 권한이 필요합니다.")
