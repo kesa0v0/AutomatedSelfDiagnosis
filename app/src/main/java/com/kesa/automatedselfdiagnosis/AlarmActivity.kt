@@ -62,6 +62,8 @@ class AlarmActivity : AppCompatActivity() {
 
                 // 아무튼 그럼 아무튼 그런거임 ㅇㅇ
 
+                // 대충 일일 1코밋 채우려고 이거 적었다는 내용
+
                 //TODO: Make some kind of Macro
             }.execute()
             
