@@ -18,62 +18,63 @@ import org.openqa.selenium.chrome.ChromeOptions
 
 class AlarmActivity : AppCompatActivity() {
 
-    private lateinit var vib : Vibrator
+    private lateinit var vib : Vibrator 
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm)
 
         val uri = "https://eduro.dge.go.kr/hcheck/index.jsp"
 
-        vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator  // 진동
 
         val timeView = findViewById<TextView>(R.id.currentTime)
         val yes = findViewById<Button>(R.id.yesSymptom)
         val no = findViewById<Button>(R.id.noSymptom)
 
-        timeView.text = intent.getStringExtra("time")
+        timeView.text = intent.getStringExtra("time")   // 택스트 현재시간으로 변경
         vib.vibrate(VibrationEffect.createWaveform(longArrayOf(500, 1000, 500, 2000), 0))
-
-        yes.setOnClickListener {
+        // 진동 무한 반복 울리기
+        
+        yes.setOnClickListener {// 증상 있음(예) 버튼을 누르면
             val browserIntent =
                 Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             startActivity(browserIntent)
 
-            vib.cancel()
-
-            finish()
+            finish() // 창 닫기
         }
 
-        no.setOnClickListener {
+        no.setOnClickListener {// 증상 없음(아니요) 버튼을 누르면
             DoAsync {
                 val get = GettingStarted()
                 get.testGoogleSearch()
 //                val browserIntent =
 //                    Intent(Intent.ACTION_VIEW, Uri.parse(uri))
 //                startActivity(browserIntent)
+                
+                // 뭔가....뭔가 아무튼 메크로임 아무튼 그럼 곧 할꺼임
+                //TODO: Make some kind of Macro
             }.execute()
-
-            vib.cancel()
-
-            finish()
+            
+            finish() // 창 닫기
         }
     }
 
-    override fun finish() {
-        vib.cancel()
+    override fun finish() { // 창이 닫기면 (어떤 방식으로든)
+        vib.cancel() // 진동 끄기
 
         super.finish()
     }
 }
 
-class DoAsync(val handler: () -> Unit) : AsyncTask<Void, Void, Void>() {
+class DoAsync(val handler: () -> Unit) : AsyncTask<Void, Void, Void>() {    // 비동기
     override fun doInBackground(vararg params: Void?): Void? {
         handler()
         return null
     }
 }
 
-class GettingStarted {
+class GettingStarted {  // 몬가...몬가 메크로 만들 곳 아마 테스트임 아무튼 그럼
     fun testGoogleSearch() {
         System.setProperty("webdriver.chrome.driver", "C:/selendroid/chromedriver.exe")
         val driver: WebDriver = ChromeDriver()
