@@ -90,11 +90,11 @@ class GettingStarted {  // 몬가...몬가 메크로 만들 곳 아마 테스트
         System.setProperty("webdriver.chrome.driver", "C:/selendroid/chromedriver.exe")
         val driver: WebDriver = ChromeDriver()
         driver["http://www.google.com/"]
-        Thread.sleep(1000) // Let the user actually see something!
+        Thread.sleep(500) // Let the user actually see something!
         val searchBox = driver.findElement(By.name("q"))
         searchBox.sendKeys("ChromeDriver")
         searchBox.submit()
-        Thread.sleep(10-0) // Let the user actually see something!
+        Thread.sleep(500) // Let the user actually see something!
         driver.quit()
     }
 }
